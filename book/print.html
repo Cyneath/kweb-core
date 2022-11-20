@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>The Kweb Book</title>
+        <title>The Kweb User Manual</title>
         <meta name="robots" content="noindex" />
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -76,7 +76,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="gettingstarted.html"><strong aria-hidden="true">2.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="dom.html"><strong aria-hidden="true">3.</strong> DOM Basics</a></li><li class="chapter-item expanded "><a href="events.html"><strong aria-hidden="true">4.</strong> Event Handling</a></li><li class="chapter-item expanded "><a href="state.html"><strong aria-hidden="true">5.</strong> Observer Pattern & State</a></li><li class="chapter-item expanded "><a href="routing.html"><strong aria-hidden="true">6.</strong> URL Routing</a></li><li class="chapter-item expanded "><a href="integrations.html"><strong aria-hidden="true">7.</strong> Integrations</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">8.</strong> Frequently Asked Questions</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="gettingstarted.html"><strong aria-hidden="true">2.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="dom.html"><strong aria-hidden="true">3.</strong> DOM Basics</a></li><li class="chapter-item expanded "><a href="events.html"><strong aria-hidden="true">4.</strong> Event Handling</a></li><li class="chapter-item expanded "><a href="state.html"><strong aria-hidden="true">5.</strong> Observer Pattern & State</a></li><li class="chapter-item expanded "><a href="routing.html"><strong aria-hidden="true">6.</strong> URL Routing</a></li><li class="chapter-item expanded "><a href="style.html"><strong aria-hidden="true">7.</strong> CSS & Style</a></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">8.</strong> Components</a></li><li class="chapter-item expanded "><a href="js.html"><strong aria-hidden="true">9.</strong> JavaScript Interop</a></li><li class="chapter-item expanded "><a href="speed.html"><strong aria-hidden="true">10.</strong> Speed & Efficiency</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">11.</strong> FAQ</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -105,11 +105,14 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">The Kweb Book</h1>
+                    <h1 class="menu-title">The Kweb User Manual</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/kwebio/kweb-core" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
                     </div>
                 </div>
@@ -135,7 +138,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+                        <p>https://ktor.io/# Introduction</p>
 <h2 id="why-another-web-framework"><a class="header" href="#why-another-web-framework">Why another web framework?</a></h2>
 <p>Modern websites consist of at least two <a href="https://en.wikipedia.org/wiki/Coupling_(computer_programming)">tightly
 coupled</a>
@@ -145,33 +148,31 @@ with each other over an HTTP(S) connection.</p>
 <p>Kweb's goal is to eliminate this server/browser separation so you can
 focus on building your website or user interface, not on the plumbing.</p>
 <h2 id="what-is-kweb"><a class="header" href="#what-is-kweb">What is Kweb?</a></h2>
-<p>Kweb is a remote interface to the web browser's DOM. You can create and
-manipulate DOM elements, and listen for and handle DOM events.</p>
-<p>Kweb has a state system that lets you <a href="state.html">easily</a> bind values in your realtime 
-database to DOM elements. This way, the elements are automatically updated when the
-database changes.</p>
-<p>A common concern about this approach is that the user interface might feel
-sluggish if it is server-driven. Kweb solves this problem by
-<a href="https://docs.kweb.io/en/latest/events.html#immediate-events">preloading</a>
-instructions to the browser. This way, the instructions are executed
-immediately on browser events without a server round-trip.</p>
-<p>Kweb is built on the <a href="https://ktor.io/">Ktor</a> framework, which handles
-HTTP, HTTPS, and WebSocket transport. You don't need to know
-Ktor to use Kweb, but if you've already got a Ktor app you can <a href="https://github.com/kwebio/kweb-demos/blob/master/ktorFeature/src/FeatureApp.kt">embed
-Kweb as a feature</a>.</p>
+<p>Kweb is a remote interface to a web browser's DOM. With Kweb, you can create 
+and manipulate DOM elements, and bind mutable values to DOM elements, and listen for 
+and handle events. All of this can be done using an intuitive and convenient domain-specific 
+language that mirrors the structure of the HTML being created. </p>
+<p>Kweb is very efficient, using many <a href="speed.html">optimizations</a> to minimize latency and resource 
+usage both on the server and in the browser. Kweb is built on the <a href="https://ktor.io/">Ktor</a> 
+framework, which handles HTTP, HTTPS, and WebSocket transport.</p>
 <h2 id="features"><a class="header" href="#features">Features</a></h2>
 <ul>
-<li>Allows the problem to determine your architecture, not the
-server/browser divide</li>
-<li>End-to-end Kotlin (<a href="https://steve-yegge.blogspot.com/2017/05/why-kotlin-is-better-than-whatever-dumb.html?m=1">Why
-Kotlin?</a>)</li>
-<li>Keep the web page in sync with your back-end data in realtime, Kweb
-does all the plumbing for you</li>
-<li>Server-side HTML rendering with
-<a href="https://developers.google.com/web/updates/2019/02/rendering-on-the-web">rehydration</a></li>
-<li>Efficient instruction preloading to avoid unnecessary server
-communication</li>
-<li>Very lightweight, Kweb is less than 5,000 lines of code</li>
+<li>
+<p>End-to-end Kotlin - write your entire web site or user interface in Kotlin, without needing to communicate between a browser and server (<a href="https://steve-yegge.blogspot.com/2017/05/why-kotlin-is-better-than-whatever-dumb.html?m=1">Why
+Kotlin?</a>)</p>
+</li>
+<li>
+<p>Realtime synchronization of your back-end data with your web page - Kweb takes care of all the plumbing for you</p>
+</li>
+<li>
+<p>Server-side HTML rendering with <a href="https://en.wikipedia.org/wiki/Hydration_(web_development)">hydration</a>, Kweb can render your HTML on the server before sending it to the browser, so that the browser doesn't have to do any rendering</p>
+</li>
+<li>
+<p>Efficient instruction preloading - Kweb can avoid unnecessary server communication by preloading instructions</p>
+</li>
+<li>
+<p>Very lightweight - Kweb is less than 5,000 lines of code</p>
+</li>
 </ul>
 <h2 id="relevant-links"><a class="header" href="#relevant-links">Relevant Links</a></h2>
 <ul>
@@ -203,7 +204,7 @@ some familiarity with HTML.</p>
 is added to your <code>repositories</code> block.</p>
 <h3 id="groovy"><a class="header" href="#groovy">Groovy</a></h3>
 <pre><code class="language-kotlin">dependencies {
-  implementation 'io.kweb:kweb-core:1.0.0'
+  implementation 'io.kweb:kweb-core:1.1.5'
 
   // This (or another SLF4J binding) is required for Kweb to log errors
   implementation 'org.slf4j:slf4j-simple:2.0.3'
@@ -211,7 +212,7 @@ is added to your <code>repositories</code> block.</p>
 </code></pre>
 <h3 id="kotlin"><a class="header" href="#kotlin">Kotlin</a></h3>
 <pre><code class="language-kotlin">dependencies {
-  implementation(&quot;io.kweb:kweb-core:1.0.0&quot;)
+  implementation(&quot;io.kweb:kweb-core:1.1.5&quot;)
 
   // This (or another SLF4J binding) is required for Kweb to log errors
   implementation(&quot;org.slf4j:slf4j-simple:2.0.3&quot;)
@@ -272,34 +273,6 @@ features like for loops, functions, coroutines, and classes.</p>
   &lt;/ul&gt;
 &lt;/body&gt;
 </code></pre>
-<p>You can use functions for modularization and reuse:</p>
-<pre><code class="language-kotlin">Kweb(port = 16097) {
-    doc.body {
-        ul {
-            // We can modify the UL element we just created in an element {} block
-            element {
-                // Here we add a CSS class to the UL element
-                classes(&quot;list&quot;)
-            }
-            // We can define functions as an extension to ElementCreator allowing us to use it
-            // within the DSL
-            fun ElementCreator&lt;ULElement&gt;.createMessage(x: Int) {
-                li().text(&quot;Hello World $x!&quot;)
-            }
-
-            for (x in 1..5) {
-                createMessage(x)
-            }
-        }
-    }
-}
-</code></pre>
-<p>As you can see this is an extension function, which allows you to use
-the Kweb DSL within the newly created function.</p>
-<p>Don't worry if you're unsure about this because you can use
-IntelliJ's <a href="https://www.jetbrains.com/help/idea/extract-method.html">extract
-function</a>
-refactoring to create these functions automatically.</p>
 <h2 id="template-repository"><a class="header" href="#template-repository">Template Repository</a></h2>
 <p>You can find a simple template Kweb project in
 <a href="https://github.com/kwebio/kweb-template">kwebio/kweb-template</a>.</p>
@@ -314,7 +287,7 @@ refactoring to create these functions automatically.</p>
 <li><a href="dom.html#further-reading">Further Reading</a></li>
 </ul>
 <h2 id="creating-dom-elements-and-fragments"><a class="header" href="#creating-dom-elements-and-fragments">Creating DOM Elements and Fragments</a></h2>
-<p>Let's create a <code>&lt;button&gt;</code> as a child of the <code>&lt;body&gt;</code> element and set its text:</p>
+<p>Let's create a <code>&lt;button&gt;</code> as a child of the <code>&lt;body&gt;</code> element and set its <a href="https://docs.kweb.io/api/kweb-core/kweb/-element/text.html">text</a>:</p>
 <pre><code class="language-kotlin">fun main() {
     Kweb(port = 16097) {
         doc.body {
@@ -328,8 +301,8 @@ refactoring to create these functions automatically.</p>
     doc.body {
         table {
             tr {
-                td().text(&quot;Name&quot;)
-                td().text(&quot;Age&quot;)
+                th().text(&quot;Name&quot;)
+                th().text(&quot;Age&quot;)
             }
             tr {
                 td().text(&quot;Alice&quot;)
@@ -344,21 +317,12 @@ refactoring to create these functions automatically.</p>
 }
 </code></pre>
 <h2 id="element-attributes"><a class="header" href="#element-attributes">Element Attributes</a></h2>
-<p>If you assign the button element to a val then you can also set its
-attributes:</p>
+<p>If you assign the button element to a val then you can also <a href="https://docs.kweb.io/api/kweb-core/kweb/-element/set.html">set its
+attributes</a>:</p>
 <pre><code class="language-kotlin">val button = button()
 button.text(&quot;Click Me!&quot;)
 button.classes(&quot;bigbutton&quot;)
 button[&quot;autofocus&quot;] = true
-</code></pre>
-<p>Attributes can also be specified in an <code>element</code> block:</p>
-<pre><code class="language-kotlin">button {
-    element {
-        classes(&quot;bigbutton&quot;)
-        this[&quot;autofocus&quot;] = true
-    }
-    text(&quot;Click Me!&quot;)
-}
 </code></pre>
 <p>Or delete it:</p>
 <pre><code class="language-kotlin">button.delete()
@@ -371,13 +335,24 @@ together:</p>
     li().text(&quot;Two&quot;)
 }
 </code></pre>
-<p>Alternatively we can use the <code>new {}</code> function to add children to a pre-existing Element:</p>
+<p>The created
+<a href="https://docs.kweb.io/api/kweb-core/kweb/-element/index.html">Element</a> is passed to the
+<code>{block}</code> as a parameter, which can be used to set attributes on the element, add
+listeners, or set the element's <a href="https://docs.kweb.io/api/kweb-core/kweb/-element/text.html">text</a> or <a href="https://docs.kweb.io/api/kweb-core/kweb/-element/inner-h-t-m-l.html">innerHtml</a>:</p>
+<pre><code class="language-kotlin">button { btnEl -&gt;
+    with(btnEl) {
+        classes(&quot;bigbutton&quot;)
+        this[&quot;autofocus&quot;] = true
+        text(&quot;Click Me!&quot;)
+    }
+}
+</code></pre>
+<p>We can also use the <code>new {}</code> function to add children to a pre-existing Element:</p>
 <pre><code class="language-kotlin">val unorderedList : ULElement = ul()
 unorderedList.new {
     li().text(&quot;One&quot;)
     li().text(&quot;Two&quot;)
 }
-
 </code></pre>
 <h2 id="reading-from-the-dom"><a class="header" href="#reading-from-the-dom">Reading from the DOM</a></h2>
 <p>Kweb can also read from the DOM, in this case the value of an <code>&lt;input&gt;</code>
@@ -404,7 +379,9 @@ statically-typed HTML DSL, fully integrated with the Kotlin language.</p>
 <p>If a tag doesn't have explicit support in Kweb that's not a problem.
 For example, here is how you might use the infamous and now-obsolete
 &lt;blink&gt; tag:</p>
-<pre><code class="language-kotlin">val blink = element(&quot;blink&quot;).text(&quot;I am annoying!&quot;)
+<pre><code class="language-kotlin">element(&quot;blink&quot;) {
+    span().text(&quot;Blinking Text&quot;)
+}
 </code></pre>
 <h2 id="further-reading"><a class="header" href="#further-reading">Further Reading</a></h2>
 <p>The
@@ -413,8 +390,13 @@ class provides many other useful ways to interact with DOM elements.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="event-handling"><a class="header" href="#event-handling">Event Handling</a></h1>
 <ul>
 <li><a href="events.html#listening-for-events">Listening for events</a></li>
-<li><a href="events.html#immediate-events">Immediate events</a></li>
-<li><a href="events.html#the-best-of-both-worlds">The best of both worlds</a></li>
+<li><a href="events.html#immediate-events">Immediate events</a>
+<ul>
+<li><a href="events.html#using-events-and-immediate-events-together">Using events and immediate events together</a></li>
+</ul>
+</li>
+<li><a href="events.html#querying-the-dom-when-an-event-is-triggered">Querying the DOM when an event is triggered</a></li>
+<li><a href="events.html#preventing-the-default-event-action">Preventing the default event action</a></li>
 </ul>
 <h2 id="listening-for-events"><a class="header" href="#listening-for-events">Listening for events</a></h2>
 <p>You can attach event handlers to DOM elements:</p>
@@ -431,7 +413,7 @@ event data like which key was pressed:</p>
 <pre><code class="language-kotlin">doc.body {
     val input = input(type = InputType.text)
     input.on.keypress { keypressEvent -&gt;
-        println(&quot;Key Pressed: ${keypressEvent.key}&quot;)
+        logger.info(&quot;Key Pressed: ${keypressEvent.key}&quot;)
     }
 }
 </code></pre>
@@ -440,12 +422,8 @@ event data like which key was pressed:</p>
 short but sometimes noticeable delay before the page updates in response
 to an event.</p>
 <p>Fortunately, Kweb has a solution:</p>
-<pre><code class="language-kotlin">doc.body {
-    val input = button(type = ButtonType.button)
-    val label = span().text(&quot;Not clicked&quot;)
-    input.onImmediate.click {
-        label.text(&quot;Clicked!&quot;)
-    }
+<pre><code class="language-kotlin">inputButton.on(retrieveJs = &quot;(new Date()).getTime()&quot;).click { event -&gt;
+    label.text(&quot;Clicked at ${event.retrieved.jsonPrimitive.content}&quot;)
 }
 </code></pre>
 <p>Kweb executes this event handler <em>on page render</em> and records the
@@ -456,13 +434,44 @@ round trip.</p>
 <em>onImmediate</em> must limit itself to simple DOM modifications. Kweb
 includes some runtime safeguards against this but they can't catch
 everything so please use with caution.</p>
-<h2 id="the-best-of-both-worlds"><a class="header" href="#the-best-of-both-worlds">The best of both worlds</a></h2>
+<h3 id="using-events-and-immediate-events-together"><a class="header" href="#using-events-and-immediate-events-together">Using events and immediate events together</a></h3>
 <p>A common pattern is to use both types of event handler on a DOM element.
 The immediate handler might disable a clicked button, or temporarily
 display some form of <a href="https://loading.io/css/">spinner</a>. The normal
 handler would then do what it needs on the server, and then perhaps
 re-enable the button and remove the spinner.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="observer-pattern--state"><a class="header" href="#observer-pattern--state">Observer Pattern &amp; State</a></h1>
+<h2 id="querying-the-dom-when-an-event-is-triggered"><a class="header" href="#querying-the-dom-when-an-event-is-triggered">Querying the DOM when an event is triggered</a></h2>
+<p>Sometimes you need to know the state of the DOM when an event is triggered.
+You could query it from within the event handler but this would add a server 
+round trip which is inefficient.</p>
+<p>Alternatively you can use <a href="https://docs.kweb.io/api/kweb-core/kweb.html.events/-on-receiver/-on-receiver.html">retrieveJs</a>. 
+This will execute the JavaScript expression you provide when the event fires and return the 
+result in the <a href="https://docs.kweb.io/api/kweb-core/kweb.html.events/-event/retrieved.html?query=val%20retrieved:%20JsonElement">retrieved</a> property of the event:</p>
+<pre><code class="language-kotlin">inputButton.on(retrieveJs = &quot;(new Date()).getTime()&quot;).click { event -&gt;
+    label.text(&quot;Clicked at ${event.retrieved.jsonPrimitive.content}&quot;)
+}
+</code></pre>
+<p>For <a href="https://docs.kweb.io/api/kweb-core/kweb/-value-element/index.html">ValueElement</a>s
+such as <a href="https://docs.kweb.io/api/kweb-core/kweb/-input-element/index.html">InputElement</a>
+there is a convenience property <code>valueJsExpression</code> that you can use to retrieve
+the current <a href="https://www.w3schools.com/tags/att_input_value.asp">value</a> of the element:</p>
+<pre><code class="language-kotlin">val textInput = input(type = InputType.text)
+val inputButton = button(type = ButtonType.button)
+val label = span().text(&quot;Not clicked&quot;)
+inputButton.on(retrieveJs = textInput.valueJsExpression).click { event -&gt;
+    label.text(&quot;Read textInput: ${event.retrieved.jsonPrimitive.content}&quot;)
+}
+</code></pre>
+<h2 id="preventing-the-default-event-action"><a class="header" href="#preventing-the-default-event-action">Preventing the default event action</a></h2>
+<p>You can also prevent the default action of an event from occurring by setting the
+<code>preventDefault</code> parameter to true - this is the equivalent of JavaScript's <a href="https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault">Event.preventDefault()</a>
+function.</p>
+<pre><code class="language-kotlin">val inputButton = button(type = ButtonType.button)
+inputButton.on(preventDefault = true).click {
+    logger.debug(&quot;Clicked!&quot;)
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="rendering-state"><a class="header" href="#rendering-state">Rendering State</a></h1>
 <ul>
 <li><a href="state.html#overview">Overview</a></li>
 <li><a href="state.html#the-kvar-class">The KVar Class</a></li>
@@ -474,16 +483,10 @@ re-enable the button and remove the spinner.</p>
 <li><a href="state.html#reversible-mapping">Reversible mapping</a></li>
 </ul>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
-<p>Kweb uses the <a href="https://en.wikipedia.org/wiki/Observer_pattern">observer
-pattern</a> to manage
-state.</p>
-<p>A Kweb app can be viewed as a mapping function between state on the
-server and the DOM within the end-user's web browser. Once this mapping
-is defined, simply modify this state and the change will propagate
-automatically to the browser.</p>
+<p>A Kweb app is a function that maps state on the server to the DOM in the user's web browser. Once this 
+mapping is defined, you can change the state and the browser will update automatically.</p>
 <h2 id="the-kvar-class"><a class="header" href="#the-kvar-class">The KVar Class</a></h2>
-<p>A
-<a href="https://docs.kweb.io/api/kweb-core/kweb.state/-k-var/index.html">KVar</a>
+<p>A <a href="https://docs.kweb.io/api/kweb-core/kweb.state/-k-var/index.html">KVar</a>
 is an observable container. It contains a single typed object, which can change over time, similar to an 
 <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicReference.html">AtomicReference</a>. 
 You can add listeners to a KVar to be notified immediately when it changes.</p>
@@ -518,13 +521,15 @@ counter: 6, doubled: 12
 <p>Note that <code>counterDoubled</code> updates automatically, because mapped KVars listen to the original for changes.</p>
 <p>The <code>KVar</code> class is a subclass of <a href="https://docs.kweb.io/api/kweb-core/kweb.state/-k-val/index.html">KVal</a>, 
 which is a read-only version of <code>KVar</code>.</p>
-<p><em>Note:</em> KVars should only be used to store values that are themselves immutable, such as an Int, String, or a 
+<p><strong>Note:</strong> KVars should only be used to store values that are themselves immutable, such as an Int, String, or a 
 Kotlin <a href="https://kotlinlang.org/docs/reference/data-classes.html">data class</a> with immutable parameters.</p>
 <h2 id="kvars-and-the-dom"><a class="header" href="#kvars-and-the-dom">KVars and the DOM</a></h2>
-<p>You can use a KVar (or KVal) to set the text of a DOM element:</p>
+<p>Within the Kotlin DSL you can use the <code>kvar()</code> function to create a <code>KVar</code>. This has the advantage of calling
+<code>KVar.close()</code> when this DOM fragment is cleaned up which will free up resources, and avoids having to import 
+the <code>KVar</code> class.</p>
 <pre><code class="language-kotlin">Kweb(port = 2135) {
     doc.body {
-        val name = KVar(&quot;John&quot;)
+        val name = kvar(&quot;John&quot;)
         li().text(name)
     }
 }
@@ -544,11 +549,15 @@ connect them bidirectionally.</p>
 <p>Any changes to the KVar will be reflected in realtime in the browser,
 and similarly any changes in the browser by the user will be reflected
 immediately in the KVar, for example:</p>
-<pre><code class="language-kotlin">val counterDoubled = counter.map { it * 2 }
-counter.value = 5
-println(&quot;counter: ${counter.value}, doubled: ${counterDoubled.value}&quot;)
-counter.value = 6
-println(&quot;counter: ${counter.value}, doubled: ${counterDoubled.value}&quot;)
+<pre><code class="language-kotlin">Kweb(port = 2395) {
+    doc.body {
+        p().text(&quot;What is your name?&quot;)
+        val input = input(type = InputType.text)
+        input.value = KVar(&quot;Peter Pan&quot;)
+        val greeting = input.value.map { name -&gt; &quot;Hi $name!&quot; }
+        p().text(greeting)
+    }
+}
 </code></pre>
 <p>This will also work for <code>&lt;option&gt;</code> and <code>&lt;textarea&gt;</code> elements which also have values.</p>
 <p>See also:
@@ -556,8 +565,7 @@ println(&quot;counter: ${counter.value}, doubled: ${counterDoubled.value}&quot;)
 <h2 id="rendering-state-to-a-dom-fragment"><a class="header" href="#rendering-state-to-a-dom-fragment">Rendering state to a DOM fragment</a></h2>
 <p>But what if you want to do more than just modify a single element based
 on a KVar, what if you want to modify a whole tree of elements?</p>
-<p>This is where the
-<a href="https://docs.kweb.io/api/kweb-core/kweb.state/render.html">render</a></p>
+<p>This is where the <a href="https://docs.kweb.io/api/kweb-core/kweb.state/render.html">render</a></p>
 <p>function comes in:</p>
 <pre><code class="language-kotlin">val list = KVar(listOf(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;))
 
@@ -592,21 +600,28 @@ automatically updating the rendered DOM in response to changes in the list. </p>
 <p>While a <code>KVar&lt;List&lt;FooBar&gt;&gt;</code> could be passed to <code>render()</code>, it would be
 very inefficient because the entire list would be re-rendered every time.
 <code>renderEach()</code> will only re-render the elements that have changed.</p>
-<pre><code class="language-kotlin">
-</code></pre>
-<p>The items must be stored in an <code>ObservableList</code>, which implements the 
+<p>The items are provided in an <a href="https://docs.kweb.io/api/kweb-core/kweb.state/index.html#183886605%2FClasslikes%2F769193423">ObservableList</a>, which implements the 
 <code>MutableList</code> interface.</p>
 <pre><code class="language-kotlin">doc.body {
-    val obsList = ObservableList(listOf(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;))
-    ul {
+    data class Pet(val name : String, val age : Int)
+
+    val obsList = ObservableList(listOf(
+        Pet(&quot;Sammy&quot;, 7),
+        Pet(&quot;Halley&quot;, 5),
+        Pet(&quot;Buddy&quot;, 3)
+    ))
+    table {
         renderEach(obsList) { item -&gt;
-            li().text(item)
+            tr {
+                td().text(item.name)
+                td().text(item.age.toString())
+            }
         }
     }
-    obsList.add(1, &quot;one and a half&quot;)
+    obsList.add(1, Pet(&quot;Bella&quot;, 2))
     obsList.removeAt(2)
     obsList.move(0, 1)
-    obsList[0] = &quot;ONE&quot;
+    obsList[0] = Pet(&quot;Joe&quot;, 1)
 }
 </code></pre>
 <h2 id="extracting-data-class-properties"><a class="header" href="#extracting-data-class-properties">Extracting data class properties</a></h2>
@@ -623,8 +638,9 @@ println(user) // Will print: KVar(User(name = &quot;John&quot;))
 </code></pre>
 <h2 id="reversible-mapping"><a class="header" href="#reversible-mapping">Reversible mapping</a></h2>
 <p>If you check the type of <em>counterDoubled</em>, you'll notice that it's a
-<em>KVal</em> rather than a <em>KVar</em>, meaning it cannot be modified. This will
-result in a compilation error:</p>
+<em>KVal</em> rather than a <em>KVar</em>, meaning it cannot be modified directly, only by
+changing the <em>KVar</em> it was mapped from. </p>
+<p>So this will result in a compilation error:</p>
 <pre><code class="language-kotlin">val counter = KVar(0)
 val counterDoubled = counter.map { it * 2 }
 counterDoubled.value = 20 // &lt;--- This won't compile
@@ -645,6 +661,8 @@ counterDoubled.value = 12 // &lt;-- Couldn't do this with a KVal
 println(&quot;counter: ${counter.value}, doubled: ${counterDoubled.value}&quot;)
 // output: counter: 6, doubled: 12
 </code></pre>
+<p>If the mapped <em>Kvar</em> is changed the original KVar it was mapped from will also
+change.</p>
 <p>Reversible mappings are an advanced feature that you only need if you
 want the mapped value to be a mutable KVar. Most of the time the simple
 <a href="https://docs.kweb.io/api/kweb-core/kweb.state/-k-val/map.html">KVal.map {}</a>
@@ -690,10 +708,9 @@ fun main() {
 }
 </code></pre>
 <p>Now, if you visit <a href="http://localhost:16097/users/997">http://localhost:16097/users/997</a>, you will see:</p>
-<pre><code class="language-html">&lt;h1&gt;User id: 997&lt;/h1&gt;
-</code></pre>
-<p>You can have as many path()s as you need, each with it's own path
-definition. The definition can contain parameters wrapped in <code>{braces}</code>.</p>
+<kbd>
+User id: 997
+</kbd>
 <p>The value of these parameters can then be retrieved from the <em>params</em>
 map, but note that the values are wrapped in a <code>KVar&lt;String&gt;</code> object.
 This means that you can use all of Kweb's <a href="https://docs.kweb.io/en/latest/state.html">state
@@ -716,7 +733,7 @@ with the style of your overall website:</p>
 }
 </code></pre>
 <h2 id="modifying-the-url"><a class="header" href="#modifying-the-url">Modifying the URL</a></h2>
-<p>You can obtain <em>and modify</em> the URL of the current page using
+<p>You can obtain <strong>and modify</strong> the URL of the current page using
 <a href="https://github.com/kwebio/kweb-core/blob/master/src/main/kotlin/kweb/WebBrowser.kt#L98">WebBrowser.url</a>.</p>
 <p>This returns a <code>KVar&lt;String&gt;</code> which contains the URL relative to the
 origin - so for the page <code>http://foo/bar/z</code> the <code>url</code> would be <code>/bar/z</code>.</p>
@@ -750,82 +767,313 @@ to <code>http://localhost:16097/number/1</code> without a page refresh, and you'
 see a hyperlink with text <code>Number 1</code>. If you click on this link you'll
 see that the number increments (both in the URL and in the link text),
 also without a page refresh.</p>
-<p>The line <code>num.value++</code> is worthy of additional attention as there is
-more going on here than meets the eye. <code>num</code> is a <code>KVar&lt;Int&gt;</code>, and so it
-can be incremented via its <code>value</code> property. This will cause the page
-URL to update, which will in-turn cause the DOM to update to reflect the
-new URL. All of this is handled for you automatically by Kweb.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="integrations"><a class="header" href="#integrations">Integrations</a></h1>
+<p><code>num.value++</code> is worthy of additional attention. <code>num</code> is a <code>KVar&lt;Int&gt;</code>, 
+and so it can be incremented via its <code>value</code> property. This will cause the 
+page URL to update, which will in-turn cause the DOM to update to reflect 
+the new URL. All of this is handled for you automatically by Kweb.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="css--style"><a class="header" href="#css--style">CSS &amp; Style</a></h1>
+<p>Kweb can integrate easily with most CSS frameworks, particularly those
+that don't have a heavy reliance on JavaScript.</p>
 <ul>
-<li><a href="integrations.html#spring-boot">Spring Boot</a></li>
-<li><a href="integrations.html#google-cloud-platform">Google Cloud Platform</a>
+<li><a href="style.html#fomantic-ui">Fomantic UI</a>
 <ul>
-<li><a href="integrations.html#firestore">FireStore</a></li>
+<li><a href="style.html#getting-started">Getting started</a></li>
+<li><a href="style.html#example-and-demo">Example and Demo</a></li>
 </ul>
 </li>
+<li><a href="style.html#other-ui-frameworks">Other UI Frameworks</a></li>
 </ul>
-<p>Kweb can be integrated in other frameworks like Spring Boot, and possibly others. Thanks to Ktor's <a href="https://ktor.io/docs/war.html#configure-ktor">ServletApplicationEngine</a>, one can basically run any Ktor application within a supported servlet container like Spring Boot.</p>
-<h2 id="spring-boot"><a class="header" href="#spring-boot">Spring Boot</a></h2>
-<p>To integrate Kweb into a Spring Boot Web application you need a Spring Boot project with the web starter, which can be easily obtained from <a href="https://start.spring.io/#!language=kotlin&amp;dependencies=web">Spring initializr</a>.
-Once you have a Spring Boot Web project, simply follow the <a href="https://docs.kweb.io/book/gettingstarted.html">Getting Started</a> guide to add Kweb to your project.</p>
-<p>For ease of demonstration here is all the code you need to integrate Kweb into Spring Boot:</p>
-<pre><code class="language-kotlin">package com.example.kwebspringboot
+<h2 id="fomantic-ui"><a class="header" href="#fomantic-ui">Fomantic UI</a></h2>
+<p>Kweb has out-of-the-box support for the excellent <a href="https://fomantic-ui.com">Fomantic
+UI</a> framework, which helps create beautiful,
+responsive layouts using human-friendly HTML.</p>
+<h3 id="getting-started-1"><a class="header" href="#getting-started-1">Getting started</a></h3>
+<p>First tell Kweb to use the Fomantic UI plugin:</p>
+<pre><code class="language-kotlin">import kweb.*
+import kweb.plugins.fomanticUI.*
 
-import io.ktor.server.application.*
-import io.ktor.server.plugins.compression.*
-import io.ktor.server.plugins.defaultheaders.*
-import io.ktor.server.servlet.*
-import io.ktor.server.websocket.*
-import kweb.*
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
-import org.springframework.boot.web.servlet.ServletComponentScan
-import java.time.Duration
-import javax.servlet.annotation.WebServlet
+fun main() {
+    Kweb(port = 16097, plugins = listOf(fomanticUIPlugin)) {
+        // ...
+    }
+}
+</code></pre>
+<p>Now the plugin will add the Fomantic CSS and JavaScript code to your
+website automatically.</p>
+<p>Let's look at one of the simple examples from the <a href="https://Fomantic-ui.com/elements/input.html">Fomantic
+UI</a> documentation:</p>
+<pre><code class="language-html">&lt;div class=&quot;ui icon input&quot;&gt;
+  &lt;input type=&quot;text&quot; placeholder=&quot;Search...&quot;&gt;
+  &lt;i class=&quot;search icon&quot;&gt;&lt;/i&gt;
+&lt;/div&gt;
+</code></pre>
+<p>This translates to the Kotlin:</p>
+<pre><code class="language-kotlin">Kweb(port = 16097, plugins = listOf(fomanticUIPlugin)) {
+    doc.body {
+        div(fomantic.ui.icon.input) {
+            input(type = InputType.text, placeholder = &quot;Search...&quot;)
+            i(fomantic.search.icon)
+        }
+    }
+}
+</code></pre>
+<p>Take a look at the <a href="https://fomantic-ui.com">Fomantic UI documentation</a>
+to see everything else it can do.</p>
+<h3 id="example-and-demo"><a class="header" href="#example-and-demo">Example and Demo</a></h3>
+<ul>
+<li><a href="https://github.com/freenet/freenetorg-website/">freenet.org</a>
+A Kweb website built on Google Cloud Platform with Fomantic styling.</li>
+</ul>
+<h2 id="other-ui-frameworks"><a class="header" href="#other-ui-frameworks">Other UI Frameworks</a></h2>
+<p>Kweb is known to work well with a number of other CSS frameworks, including:</p>
+<ul>
+<li><a href="https://bulma.io/">Bulma</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="components"><a class="header" href="#components">Components</a></h1>
+<ul>
+<li><a href="components.html#managing-complexity">Managing Complexity</a></li>
+<li><a href="components.html#the-component-interface">The Component Interface</a></li>
+<li><a href="components.html#a-simple-example">A Simple Example</a></li>
+<li><a href="components.html#a-more-complex-example">A more complex example</a></li>
+</ul>
+<h2 id="managing-complexity"><a class="header" href="#managing-complexity">Managing Complexity</a></h2>
+<p>Composable components help manage software complexity by allowing developers to break down
+a complex problem into smaller, more manageable pieces. Other benefits include
+reusability, testability, and the ability to reason about a system in isolation.</p>
+<h2 id="the-component-interface"><a class="header" href="#the-component-interface">The Component Interface</a></h2>
+<p><strong>Component</strong> (<a href="https://docs.kweb.io/api/kweb-core/kweb.state/-component/index.html?query=interface%20Component%3CR%3E">api</a>) 
+is a simple but powerful abstraction to create reusable UI components in Kweb:</p>
+<pre><code class="language-kotlin">/**
+ * [AdvancedComponent]s can be rendered into DOM elements by calling [AdvancedComponent.render].
+ *
+ * Unlike [Component], [AdvancedComponent]s allows the parent element type to be configured, and a return
+ * type to be specified.
+ */
+interface AdvancedComponent&lt;in PARENT_ELEMENT_TYPE : Element, out RETURN_TYPE&gt; {
 
-@ServletComponentScan
-@SpringBootApplication
-class KwebSpringBootApplication {
-
-    @WebServlet(urlPatterns = [&quot;/*&quot;], asyncSupported = true)
-    class KwebServlet : ServletApplicationEngine() {
-
-        override fun init() {
-            super.init()
-
-            application.install(DefaultHeaders)
-            application.install(Compression)
-            application.install(WebSockets) {
-                pingPeriod = Duration.ofSeconds(10)
-                timeout = Duration.ofSeconds(30)
+    /**
+     * Render this [Component] into DOM elements, returning an arbitrary
+     * value of type [RETURN_TYPE].
+     */
+    fun render(elementCreator: ElementCreator&lt;PARENT_ELEMENT_TYPE&gt;) : RETURN_TYPE
+}
+</code></pre>
+<h2 id="a-simple-example-1"><a class="header" href="#a-simple-example-1">A Simple Example</a></h2>
+<pre><code class="language-kotlin">class SimpleComponent(
+    val prompt: String = &quot;Enter Your Name&quot;,
+    val name: KVar&lt;String&gt;
+) : Component {
+    override fun render(elementCreator: ElementCreator&lt;Element&gt;) {
+        with(elementCreator) {
+            div {
+                h1().text(prompt)
+                input(type = text).value = name
             }
-
-            application.install(Kweb) {
-                buildPage = {
-                    doc.body {
-                        div {
-                            h1().text(&quot;Enter Your Name&quot;)
-                            val nameInput = input(type = InputType.text)
-                            br()
-                            span().text(nameInput.value.map { &quot;Hello, $it&quot; })
-                        }
-                    }
-                }
+            div {
+                span().text(name.map { &quot;Hello, $it&quot; })
             }
         }
     }
 }
-
-fun main(args: Array&lt;String&gt;) {
-    runApplication&lt;KwebSpringBootApplication&gt;(*args)
+</code></pre>
+<p>This component can then be passed to <a href="https://docs.kweb.io/api/kweb-core/kweb.state/render.html">ElementCreator.render</a>:</p>
+<pre><code class="language-kotlin">Kweb(port = 16097) {
+    doc.body {
+        render(SimpleComponent(name = kvar(&quot;World&quot;)))
+    }
 }
 </code></pre>
-<h2 id="google-cloud-platform"><a class="header" href="#google-cloud-platform">Google Cloud Platform</a></h2>
-<h3 id="firestore"><a class="header" href="#firestore">FireStore</a></h3>
-<p>Kweb can be used with Google Cloud Platform's FireStore. Our demo website defines some utility methods in
-<a href="https://github.com/freenet/freenetorg-website/blob/staging/src/main/kotlin/org/freenet/website/util/firestore.kt">firestore.kt</a>,
-and you can see how they're used in <a href="https://github.com/freenet/freenetorg-website/blob/staging/src/main/kotlin/org/freenet/website/landing/news.kt">news.kt</a>
-and <a href="https://github.com/freenet/freenetorg-website/blob/staging/src/main/kotlin/org/freenet/website/landing/landing.kt#L85">landing.kt</a>.</p>
+<p>Components are configured through constructor parameters, typically through
+a mixture of:</p>
+<ul>
+<li><a href="https://docs.kweb.io/api/kweb-core/kweb.state/-k-val/index.html">KVal</a>s for values that can change</li>
+<li><a href="https://docs.kweb.io/api/kweb-core/kweb.state/-k-var/index.html">KVar</a>s for values that can change or be changed by the Component</li>
+<li><a href="https://docs.kweb.io/api/kweb-core/kweb.state/-observable-list/index.html">ObservableList</a>s for lists of values that can change</li>
+<li>Other normal classes like <strong>String</strong> for immutable values</li>
+</ul>
+<p>The simplest Component's may have no constructor at all, or just one or two, 
+parameters, while the most complex might use a <a href="https://in-kotlin.com/design-patterns/builder-pattern/dsl/">DSL builder</a>.</p>
+<p><strong>Component</strong>'s can be rendered by calling their <strong>render()</strong> method, which can return
+a generically typed value (or <strong>Unit</strong> if no value is returned).</p>
+<h2 id="a-more-complex-example"><a class="header" href="#a-more-complex-example">A more complex example</a></h2>
+<p>In this example we create a <strong>Component</strong> that wraps an <a href="https://bulma.io/documentation/form/input/">&lt;input&gt; element</a>
+styled using the <a href="https://bulma.io/">Bulma CSS framework</a>:</p>
+<pre><code class="language-kotlin">class BulmaInput(
+    val type : InputType,
+    val color: KVal&lt;BulmaColor&gt;? = null,
+    val size: KVal&lt;BulmaSize&gt;? = null,
+    val style: KVal&lt;BulmaStyle&gt;? = null,
+    val state: KVal&lt;BulmaState&gt;? = null,
+    val disabled: KVal&lt;Boolean&gt;? = null,
+    val value: KVar&lt;String&gt;
+) : Component {
+
+    override fun render(elementCreator: ElementCreator&lt;*&gt;) {
+        with(elementCreator) {
+            input(type = type) { inputElement -&gt;
+                var inputClassList: KVal&lt;List&lt;String&gt;&gt; = kval(listOf(&quot;input&quot;))
+                with(inputElement) {
+
+                    if (color != null) {
+                        inputClassList += color.map { listOf(it.cssClassName) }
+                    }
+                    if (size != null) {
+                        inputClassList += size.map { listOf(it.cssClassName) }
+                    }
+                    if (this@BulmaInput.style != null) {
+                        inputClassList += this@BulmaInput.style.map { listOf(it.cssClassName) }
+                    }
+                    if (state != null) {
+                        inputClassList += state.map { listOf(it.cssClassName) }
+                    }
+
+                    if (disabled != null) {
+                        this[&quot;disabled&quot;] = disabled.map { it.json }
+                    }
+
+                    classes(inputClassList.map { it.joinToString(&quot; &quot;) })
+
+                    this.value = this@BulmaInput.value
+
+                }
+            }
+        }
+    }
+
+    enum class BulmaColor(val cssClassName: String) {
+        PRIMARY(&quot;is-primary&quot;),
+        LINK(&quot;is-link&quot;),
+        INFO(&quot;is-info&quot;),
+        SUCCESS(&quot;is-success&quot;),
+        WARNING(&quot;is-warning&quot;),
+        DANGER(&quot;is-danger&quot;)
+    }
+
+    enum class BulmaSize(val cssClassName: String) {
+        SMALL(&quot;is-small&quot;),
+        NORMAL(&quot;is-normal&quot;),
+        MEDIUM(&quot;is-medium&quot;),
+        LARGE(&quot;is-large&quot;)
+    }
+
+    enum class BulmaStyle(val cssClassName: String) {
+        ROUNDED(&quot;is-rounded&quot;),
+        FOCUSED(&quot;is-focused&quot;)
+    }
+
+    enum class BulmaState(val cssClassName: String) {
+        NORMAL(&quot;is-normal&quot;),
+        HOVER(&quot;is-hovered&quot;),
+        FOCUS(&quot;is-focused&quot;),
+        LOADING(&quot;is-loading&quot;),
+    }
+}
+</code></pre>
+<p>This component can then be used like this:</p>
+<pre><code class="language-kotlin">Kweb(port = 12354) {
+    doc.head {
+        element(&quot;link&quot;,
+            attributes = mapOf(
+                &quot;rel&quot; to &quot;stylesheet&quot;.json,
+                &quot;href&quot; to &quot;https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css&quot;.json
+            )
+        )
+    }
+
+    doc.body {
+        val username = kvar(&quot;&quot;)
+        val color = username.map { if (it.length &lt; 5) { WARNING } else { SUCCESS }
+        }
+        render(BulmaInput(type = text, value = username, color = color))
+    }
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="javascript-interop"><a class="header" href="#javascript-interop">JavaScript Interop</a></h1>
+<ul>
+<li><a href="js.html#introduction">Introduction</a></li>
+<li><a href="js.html#calling-a-javascript-function">Calling a JavaScript function</a></li>
+<li><a href="js.html#calling-with-parameters">Calling with parameters</a></li>
+<li><a href="js.html#function-caching-and-preloading">Function caching and preloading</a></li>
+<li><a href="js.html#calling-a-javascript-function-with-a-result">Calling a JavaScript function with a result</a></li>
+</ul>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>Kweb's DOM interaction functionality is build on top of two functions that allow you to interact
+directly with the browser's JavaScript interpreter:</p>
+<ul>
+<li><a href="https://docs.kweb.io/api/kweb-core/kweb/-web-browser/call-js-function.html">WebBrowser.callJsFunction()</a></li>
+<li><a href="https://docs.kweb.io/api/kweb-core/kweb/-web-browser/call-js-function-with-result.html">WebBrowser.callJsFunctionWithResult()</a></li>
+</ul>
+<p>Note that this is unrelated to Kotlin's ability to <a href="https://kotlinlang.org/docs/js-overview.html">compile to JavaScript</a>.</p>
+<h2 id="calling-a-javascript-function"><a class="header" href="#calling-a-javascript-function">Calling a JavaScript function</a></h2>
+<pre><code class="language-kotlin">doc.body {
+    browser.callJsFunction(&quot;&quot;&quot;alert(&quot;Hello World!&quot;)&quot;&quot;&quot;)
+}
+</code></pre>
+<h2 id="calling-with-parameters"><a class="header" href="#calling-with-parameters">Calling with parameters</a></h2>
+<p>You can pass parameters to a JavaScript function by passing them as arguments to the <code>callJsFunction()</code> function,
+using <code>{}</code> for substitution:</p>
+<pre><code class="language-kotlin">doc.body {
+    val greeting = &quot;Hello&quot;.json
+    val name = &quot;World&quot;.json
+    browser.callJsFunction(&quot;&quot;&quot;alert({} + &quot; &quot; + {} + &quot;!&quot;)&quot;&quot;&quot;, greeting, name)
+}
+</code></pre>
+<p>Parameters must be converted to a <a href="https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-element/">JsonElement</a>,
+for example by using the <a href="https://docs.kweb.io/api/kweb-core/kweb.util/json.html">json</a> extension property. Within
+the JavaScript code the <code>{}</code> should be treated like a variable, so <code>alert({})</code> is ok but <code>alert(&quot;{}&quot;)</code> will not work.</p>
+<h2 id="function-caching-and-preloading"><a class="header" href="#function-caching-and-preloading">Function caching and preloading</a></h2>
+<p>Kotlin automatically caches JavaScript functions in the browser for efficiency. If the function is 
+first called during initial page render, it will be parsed and cached as part of the initial page load.</p>
+<h2 id="calling-a-javascript-function-with-a-result"><a class="header" href="#calling-a-javascript-function-with-a-result">Calling a JavaScript function with a result</a></h2>
+<p>You can also retrieve a result from a function call using <a href="https://docs.kweb.io/api/kweb-core/kweb/-web-browser/call-js-function-with-result.html">callJsFunctionWithResult()</a>.
+Note that the last line of the <code>jsBody</code> parameter must be a <code>return</code> statement:</p>
+<pre><code class="language-kotlin">doc.body {
+    elementScope().launch {
+        val result : JsonElement = browser.callJsFunctionWithResult(&quot;return Date.now()&quot;)
+        println(&quot;Result: ${result.jsonPrimitive.intOrNull}&quot;)
+    }
+}
+</code></pre>
+<p><code>callJsFunctionWithResult()</code> is a suspend function so it must be called inside a <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/">CoroutineScope</a>. 
+You can create one within Kweb's DSL using <strong>elementScope()</strong>. This scope will be cancelled automatically
+when this part of the DOM is no-longer needed.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="speed--efficiency"><a class="header" href="#speed--efficiency">Speed &amp; Efficiency</a></h1>
+<p>Kweb is designed to be fast and efficient, both in the browser and on the server. This chapter documents some
+of the techniques Kweb uses to achieve this.</p>
+<ul>
+<li><a href="speed.html#server-side-rendering">Server-side rendering</a></li>
+<li><a href="speed.html#hydration">Hydration</a></li>
+<li><a href="speed.html#websockets">WebSockets</a></li>
+<li><a href="speed.html#immediate-events">Immediate events</a></li>
+<li><a href="speed.html#javascript-caching">JavaScript caching</a></li>
+<li><a href="speed.html#input-field-diffing">Input field diffing</a></li>
+</ul>
+<h2 id="server-side-rendering"><a class="header" href="#server-side-rendering">Server-side rendering</a></h2>
+<p>Kweb uses the excellent <a href="https://jsoup.org/">JSoup</a> library to render the initial HTML page, which is supplied to
+the browser when the page first loads. This leads to a faster initial page load, and allows search engines to index 
+the page even if they aren't JavaScript aware.</p>
+<h2 id="hydration"><a class="header" href="#hydration">Hydration</a></h2>
+<p>Kweb uses a technique called <a href="https://en.wikipedia.org/wiki/Hydration_(web_development)">hydration</a> to add
+JavaScript listeners to the DOM elements that were rendered by the server.</p>
+<h2 id="websockets"><a class="header" href="#websockets">WebSockets</a></h2>
+<p>After the initial page load Kweb uses WebSockets to communicate with the browser. This is more efficient than
+HTTP because messages can be initiated by either the browser or the server, and the connection is kept open
+between messages.</p>
+<h2 id="immediate-events-1"><a class="header" href="#immediate-events-1">Immediate events</a></h2>
+<p>Normal DOM events are reported to the Kweb server which then decides how to handle them. In some situations this
+can cause a short but noticeable delay. <a href="events.html#immediate-events">Immediate events</a> address this by allowing
+the event handler's DOM changes to be &quot;recorded&quot; by Kweb and sent to the browser in advance so it can be executed
+immediately.</p>
+<h2 id="javascript-caching"><a class="header" href="#javascript-caching">JavaScript caching</a></h2>
+<p>After the initial page load, Kweb modifies the DOM by sending JavaScript to the browser. Much of this JavaScript
+is sent as part of the initial page load, but some is sent dynamically as the user interacts with the page.
+This JavaScript is parsed using <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">Function</a>
+(which is more efficient than <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval">eval</a>), 
+and then cached in the browser for future use.</p>
+<h2 id="input-field-diffing"><a class="header" href="#input-field-diffing">Input field diffing</a></h2>
+<p>When an <code>&lt;input&gt;</code> or <code>&lt;textarea&gt;</code> field is modified, Kweb only sends the change to the browser rather than the
+entire field. This is essential for performance when the field is large, or when its being synchronised on
+every keypress.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="frequently-asked-questions"><a class="header" href="#frequently-asked-questions">Frequently Asked Questions</a></h1>
 <ul>
 <li><a href="faq.html#wont-kweb-be-slow-relative-to-client-side-web-frameworks">Won't Kweb be slow relative to client-side web frameworks?</a></li>
@@ -894,7 +1142,7 @@ for an example.</p>
 <h2 id="i-want-to-deploy-a-kweb-application-behind-a-load-balancer-what-do-i-need-to-consider"><a class="header" href="#i-want-to-deploy-a-kweb-application-behind-a-load-balancer-what-do-i-need-to-consider">I want to deploy a Kweb Application behind a load balancer, what do i need to consider?</a></h2>
 <p>Please make sure to enable session affinity so that repeated requests
 from the same client end up at the same kweb instance. Kweb does not
-share it's internal state between multiple instances, so it is
+share its internal state between multiple instances, so it is
 important to make sure that each request from a single user ends up at
 always the same instance.</p>
 <p>If the load balancer uses e.g. round robin strategy for load balancing,

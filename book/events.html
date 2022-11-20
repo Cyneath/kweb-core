@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Event Handling - The Kweb Book</title>
+        <title>Event Handling - The Kweb User Manual</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="User manual for the Kweb web framework">
@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="gettingstarted.html"><strong aria-hidden="true">2.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="dom.html"><strong aria-hidden="true">3.</strong> DOM Basics</a></li><li class="chapter-item expanded "><a href="events.html" class="active"><strong aria-hidden="true">4.</strong> Event Handling</a></li><li class="chapter-item expanded "><a href="state.html"><strong aria-hidden="true">5.</strong> Observer Pattern & State</a></li><li class="chapter-item expanded "><a href="routing.html"><strong aria-hidden="true">6.</strong> URL Routing</a></li><li class="chapter-item expanded "><a href="integrations.html"><strong aria-hidden="true">7.</strong> Integrations</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">8.</strong> Frequently Asked Questions</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="gettingstarted.html"><strong aria-hidden="true">2.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="dom.html"><strong aria-hidden="true">3.</strong> DOM Basics</a></li><li class="chapter-item expanded "><a href="events.html" class="active"><strong aria-hidden="true">4.</strong> Event Handling</a></li><li class="chapter-item expanded "><a href="state.html"><strong aria-hidden="true">5.</strong> Observer Pattern & State</a></li><li class="chapter-item expanded "><a href="routing.html"><strong aria-hidden="true">6.</strong> URL Routing</a></li><li class="chapter-item expanded "><a href="style.html"><strong aria-hidden="true">7.</strong> CSS & Style</a></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">8.</strong> Components</a></li><li class="chapter-item expanded "><a href="js.html"><strong aria-hidden="true">9.</strong> JavaScript Interop</a></li><li class="chapter-item expanded "><a href="speed.html"><strong aria-hidden="true">10.</strong> Speed & Efficiency</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">11.</strong> FAQ</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -104,11 +104,17 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">The Kweb Book</h1>
+                    <h1 class="menu-title">The Kweb User Manual</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/kwebio/kweb-core" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/kwebio/kweb-core/edit/master/docs/src/events.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
                     </div>
                 </div>
@@ -137,8 +143,13 @@
                         <h1 id="event-handling"><a class="header" href="#event-handling">Event Handling</a></h1>
 <ul>
 <li><a href="#listening-for-events">Listening for events</a></li>
-<li><a href="#immediate-events">Immediate events</a></li>
-<li><a href="#the-best-of-both-worlds">The best of both worlds</a></li>
+<li><a href="#immediate-events">Immediate events</a>
+<ul>
+<li><a href="#using-events-and-immediate-events-together">Using events and immediate events together</a></li>
+</ul>
+</li>
+<li><a href="#querying-the-dom-when-an-event-is-triggered">Querying the DOM when an event is triggered</a></li>
+<li><a href="#preventing-the-default-event-action">Preventing the default event action</a></li>
 </ul>
 <h2 id="listening-for-events"><a class="header" href="#listening-for-events">Listening for events</a></h2>
 <p>You can attach event handlers to DOM elements:</p>
@@ -155,7 +166,7 @@ event data like which key was pressed:</p>
 <pre><code class="language-kotlin">doc.body {
     val input = input(type = InputType.text)
     input.on.keypress { keypressEvent -&gt;
-        println(&quot;Key Pressed: ${keypressEvent.key}&quot;)
+        logger.info(&quot;Key Pressed: ${keypressEvent.key}&quot;)
     }
 }
 </code></pre>
@@ -164,12 +175,8 @@ event data like which key was pressed:</p>
 short but sometimes noticeable delay before the page updates in response
 to an event.</p>
 <p>Fortunately, Kweb has a solution:</p>
-<pre><code class="language-kotlin">doc.body {
-    val input = button(type = ButtonType.button)
-    val label = span().text(&quot;Not clicked&quot;)
-    input.onImmediate.click {
-        label.text(&quot;Clicked!&quot;)
-    }
+<pre><code class="language-kotlin">inputButton.on(retrieveJs = &quot;(new Date()).getTime()&quot;).click { event -&gt;
+    label.text(&quot;Clicked at ${event.retrieved.jsonPrimitive.content}&quot;)
 }
 </code></pre>
 <p>Kweb executes this event handler <em>on page render</em> and records the
@@ -180,12 +187,43 @@ round trip.</p>
 <em>onImmediate</em> must limit itself to simple DOM modifications. Kweb
 includes some runtime safeguards against this but they can't catch
 everything so please use with caution.</p>
-<h2 id="the-best-of-both-worlds"><a class="header" href="#the-best-of-both-worlds">The best of both worlds</a></h2>
+<h3 id="using-events-and-immediate-events-together"><a class="header" href="#using-events-and-immediate-events-together">Using events and immediate events together</a></h3>
 <p>A common pattern is to use both types of event handler on a DOM element.
 The immediate handler might disable a clicked button, or temporarily
 display some form of <a href="https://loading.io/css/">spinner</a>. The normal
 handler would then do what it needs on the server, and then perhaps
 re-enable the button and remove the spinner.</p>
+<h2 id="querying-the-dom-when-an-event-is-triggered"><a class="header" href="#querying-the-dom-when-an-event-is-triggered">Querying the DOM when an event is triggered</a></h2>
+<p>Sometimes you need to know the state of the DOM when an event is triggered.
+You could query it from within the event handler but this would add a server 
+round trip which is inefficient.</p>
+<p>Alternatively you can use <a href="https://docs.kweb.io/api/kweb-core/kweb.html.events/-on-receiver/-on-receiver.html">retrieveJs</a>. 
+This will execute the JavaScript expression you provide when the event fires and return the 
+result in the <a href="https://docs.kweb.io/api/kweb-core/kweb.html.events/-event/retrieved.html?query=val%20retrieved:%20JsonElement">retrieved</a> property of the event:</p>
+<pre><code class="language-kotlin">inputButton.on(retrieveJs = &quot;(new Date()).getTime()&quot;).click { event -&gt;
+    label.text(&quot;Clicked at ${event.retrieved.jsonPrimitive.content}&quot;)
+}
+</code></pre>
+<p>For <a href="https://docs.kweb.io/api/kweb-core/kweb/-value-element/index.html">ValueElement</a>s
+such as <a href="https://docs.kweb.io/api/kweb-core/kweb/-input-element/index.html">InputElement</a>
+there is a convenience property <code>valueJsExpression</code> that you can use to retrieve
+the current <a href="https://www.w3schools.com/tags/att_input_value.asp">value</a> of the element:</p>
+<pre><code class="language-kotlin">val textInput = input(type = InputType.text)
+val inputButton = button(type = ButtonType.button)
+val label = span().text(&quot;Not clicked&quot;)
+inputButton.on(retrieveJs = textInput.valueJsExpression).click { event -&gt;
+    label.text(&quot;Read textInput: ${event.retrieved.jsonPrimitive.content}&quot;)
+}
+</code></pre>
+<h2 id="preventing-the-default-event-action"><a class="header" href="#preventing-the-default-event-action">Preventing the default event action</a></h2>
+<p>You can also prevent the default action of an event from occurring by setting the
+<code>preventDefault</code> parameter to true - this is the equivalent of JavaScript's <a href="https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault">Event.preventDefault()</a>
+function.</p>
+<pre><code class="language-kotlin">val inputButton = button(type = ButtonType.button)
+inputButton.on(preventDefault = true).click {
+    logger.debug(&quot;Clicked!&quot;)
+}
+</code></pre>
 
                     </main>
 

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Observer Pattern &amp; State - The Kweb Book</title>
+        <title>Observer Pattern &amp; State - The Kweb User Manual</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="User manual for the Kweb web framework">
@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="gettingstarted.html"><strong aria-hidden="true">2.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="dom.html"><strong aria-hidden="true">3.</strong> DOM Basics</a></li><li class="chapter-item expanded "><a href="events.html"><strong aria-hidden="true">4.</strong> Event Handling</a></li><li class="chapter-item expanded "><a href="state.html" class="active"><strong aria-hidden="true">5.</strong> Observer Pattern & State</a></li><li class="chapter-item expanded "><a href="routing.html"><strong aria-hidden="true">6.</strong> URL Routing</a></li><li class="chapter-item expanded "><a href="integrations.html"><strong aria-hidden="true">7.</strong> Integrations</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">8.</strong> Frequently Asked Questions</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="gettingstarted.html"><strong aria-hidden="true">2.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="dom.html"><strong aria-hidden="true">3.</strong> DOM Basics</a></li><li class="chapter-item expanded "><a href="events.html"><strong aria-hidden="true">4.</strong> Event Handling</a></li><li class="chapter-item expanded "><a href="state.html" class="active"><strong aria-hidden="true">5.</strong> Observer Pattern & State</a></li><li class="chapter-item expanded "><a href="routing.html"><strong aria-hidden="true">6.</strong> URL Routing</a></li><li class="chapter-item expanded "><a href="style.html"><strong aria-hidden="true">7.</strong> CSS & Style</a></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">8.</strong> Components</a></li><li class="chapter-item expanded "><a href="js.html"><strong aria-hidden="true">9.</strong> JavaScript Interop</a></li><li class="chapter-item expanded "><a href="speed.html"><strong aria-hidden="true">10.</strong> Speed & Efficiency</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">11.</strong> FAQ</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -104,11 +104,17 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">The Kweb Book</h1>
+                    <h1 class="menu-title">The Kweb User Manual</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/kwebio/kweb-core" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/kwebio/kweb-core/edit/master/docs/src/state.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
                     </div>
                 </div>
@@ -134,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="observer-pattern--state"><a class="header" href="#observer-pattern--state">Observer Pattern &amp; State</a></h1>
+                        <h1 id="rendering-state"><a class="header" href="#rendering-state">Rendering State</a></h1>
 <ul>
 <li><a href="#overview">Overview</a></li>
 <li><a href="#the-kvar-class">The KVar Class</a></li>
@@ -146,16 +152,10 @@
 <li><a href="#reversible-mapping">Reversible mapping</a></li>
 </ul>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
-<p>Kweb uses the <a href="https://en.wikipedia.org/wiki/Observer_pattern">observer
-pattern</a> to manage
-state.</p>
-<p>A Kweb app can be viewed as a mapping function between state on the
-server and the DOM within the end-user's web browser. Once this mapping
-is defined, simply modify this state and the change will propagate
-automatically to the browser.</p>
+<p>A Kweb app is a function that maps state on the server to the DOM in the user's web browser. Once this 
+mapping is defined, you can change the state and the browser will update automatically.</p>
 <h2 id="the-kvar-class"><a class="header" href="#the-kvar-class">The KVar Class</a></h2>
-<p>A
-<a href="https://docs.kweb.io/api/kweb-core/kweb.state/-k-var/index.html">KVar</a>
+<p>A <a href="https://docs.kweb.io/api/kweb-core/kweb.state/-k-var/index.html">KVar</a>
 is an observable container. It contains a single typed object, which can change over time, similar to an 
 <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicReference.html">AtomicReference</a>. 
 You can add listeners to a KVar to be notified immediately when it changes.</p>
@@ -190,13 +190,15 @@ counter: 6, doubled: 12
 <p>Note that <code>counterDoubled</code> updates automatically, because mapped KVars listen to the original for changes.</p>
 <p>The <code>KVar</code> class is a subclass of <a href="https://docs.kweb.io/api/kweb-core/kweb.state/-k-val/index.html">KVal</a>, 
 which is a read-only version of <code>KVar</code>.</p>
-<p><em>Note:</em> KVars should only be used to store values that are themselves immutable, such as an Int, String, or a 
+<p><strong>Note:</strong> KVars should only be used to store values that are themselves immutable, such as an Int, String, or a 
 Kotlin <a href="https://kotlinlang.org/docs/reference/data-classes.html">data class</a> with immutable parameters.</p>
 <h2 id="kvars-and-the-dom"><a class="header" href="#kvars-and-the-dom">KVars and the DOM</a></h2>
-<p>You can use a KVar (or KVal) to set the text of a DOM element:</p>
+<p>Within the Kotlin DSL you can use the <code>kvar()</code> function to create a <code>KVar</code>. This has the advantage of calling
+<code>KVar.close()</code> when this DOM fragment is cleaned up which will free up resources, and avoids having to import 
+the <code>KVar</code> class.</p>
 <pre><code class="language-kotlin">Kweb(port = 2135) {
     doc.body {
-        val name = KVar(&quot;John&quot;)
+        val name = kvar(&quot;John&quot;)
         li().text(name)
     }
 }
@@ -216,11 +218,15 @@ connect them bidirectionally.</p>
 <p>Any changes to the KVar will be reflected in realtime in the browser,
 and similarly any changes in the browser by the user will be reflected
 immediately in the KVar, for example:</p>
-<pre><code class="language-kotlin">val counterDoubled = counter.map { it * 2 }
-counter.value = 5
-println(&quot;counter: ${counter.value}, doubled: ${counterDoubled.value}&quot;)
-counter.value = 6
-println(&quot;counter: ${counter.value}, doubled: ${counterDoubled.value}&quot;)
+<pre><code class="language-kotlin">Kweb(port = 2395) {
+    doc.body {
+        p().text(&quot;What is your name?&quot;)
+        val input = input(type = InputType.text)
+        input.value = KVar(&quot;Peter Pan&quot;)
+        val greeting = input.value.map { name -&gt; &quot;Hi $name!&quot; }
+        p().text(greeting)
+    }
+}
 </code></pre>
 <p>This will also work for <code>&lt;option&gt;</code> and <code>&lt;textarea&gt;</code> elements which also have values.</p>
 <p>See also:
@@ -228,8 +234,7 @@ println(&quot;counter: ${counter.value}, doubled: ${counterDoubled.value}&quot;)
 <h2 id="rendering-state-to-a-dom-fragment"><a class="header" href="#rendering-state-to-a-dom-fragment">Rendering state to a DOM fragment</a></h2>
 <p>But what if you want to do more than just modify a single element based
 on a KVar, what if you want to modify a whole tree of elements?</p>
-<p>This is where the
-<a href="https://docs.kweb.io/api/kweb-core/kweb.state/render.html">render</a></p>
+<p>This is where the <a href="https://docs.kweb.io/api/kweb-core/kweb.state/render.html">render</a></p>
 <p>function comes in:</p>
 <pre><code class="language-kotlin">val list = KVar(listOf(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;))
 
@@ -264,21 +269,28 @@ automatically updating the rendered DOM in response to changes in the list. </p>
 <p>While a <code>KVar&lt;List&lt;FooBar&gt;&gt;</code> could be passed to <code>render()</code>, it would be
 very inefficient because the entire list would be re-rendered every time.
 <code>renderEach()</code> will only re-render the elements that have changed.</p>
-<pre><code class="language-kotlin">
-</code></pre>
-<p>The items must be stored in an <code>ObservableList</code>, which implements the 
+<p>The items are provided in an <a href="https://docs.kweb.io/api/kweb-core/kweb.state/index.html#183886605%2FClasslikes%2F769193423">ObservableList</a>, which implements the 
 <code>MutableList</code> interface.</p>
 <pre><code class="language-kotlin">doc.body {
-    val obsList = ObservableList(listOf(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;))
-    ul {
+    data class Pet(val name : String, val age : Int)
+
+    val obsList = ObservableList(listOf(
+        Pet(&quot;Sammy&quot;, 7),
+        Pet(&quot;Halley&quot;, 5),
+        Pet(&quot;Buddy&quot;, 3)
+    ))
+    table {
         renderEach(obsList) { item -&gt;
-            li().text(item)
+            tr {
+                td().text(item.name)
+                td().text(item.age.toString())
+            }
         }
     }
-    obsList.add(1, &quot;one and a half&quot;)
+    obsList.add(1, Pet(&quot;Bella&quot;, 2))
     obsList.removeAt(2)
     obsList.move(0, 1)
-    obsList[0] = &quot;ONE&quot;
+    obsList[0] = Pet(&quot;Joe&quot;, 1)
 }
 </code></pre>
 <h2 id="extracting-data-class-properties"><a class="header" href="#extracting-data-class-properties">Extracting data class properties</a></h2>
@@ -295,8 +307,9 @@ println(user) // Will print: KVar(User(name = &quot;John&quot;))
 </code></pre>
 <h2 id="reversible-mapping"><a class="header" href="#reversible-mapping">Reversible mapping</a></h2>
 <p>If you check the type of <em>counterDoubled</em>, you'll notice that it's a
-<em>KVal</em> rather than a <em>KVar</em>, meaning it cannot be modified. This will
-result in a compilation error:</p>
+<em>KVal</em> rather than a <em>KVar</em>, meaning it cannot be modified directly, only by
+changing the <em>KVar</em> it was mapped from. </p>
+<p>So this will result in a compilation error:</p>
 <pre><code class="language-kotlin">val counter = KVar(0)
 val counterDoubled = counter.map { it * 2 }
 counterDoubled.value = 20 // &lt;--- This won't compile
@@ -317,6 +330,8 @@ counterDoubled.value = 12 // &lt;-- Couldn't do this with a KVal
 println(&quot;counter: ${counter.value}, doubled: ${counterDoubled.value}&quot;)
 // output: counter: 6, doubled: 12
 </code></pre>
+<p>If the mapped <em>Kvar</em> is changed the original KVar it was mapped from will also
+change.</p>
 <p>Reversible mappings are an advanced feature that you only need if you
 want the mapped value to be a mutable KVar. Most of the time the simple
 <a href="https://docs.kweb.io/api/kweb-core/kweb.state/-k-val/map.html">KVal.map {}</a>

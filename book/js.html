@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>DOM Basics - The Kweb User Manual</title>
+        <title>JavaScript Interop - The Kweb User Manual</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="User manual for the Kweb web framework">
@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="gettingstarted.html"><strong aria-hidden="true">2.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="dom.html" class="active"><strong aria-hidden="true">3.</strong> DOM Basics</a></li><li class="chapter-item expanded "><a href="events.html"><strong aria-hidden="true">4.</strong> Event Handling</a></li><li class="chapter-item expanded "><a href="state.html"><strong aria-hidden="true">5.</strong> Observer Pattern & State</a></li><li class="chapter-item expanded "><a href="routing.html"><strong aria-hidden="true">6.</strong> URL Routing</a></li><li class="chapter-item expanded "><a href="style.html"><strong aria-hidden="true">7.</strong> CSS & Style</a></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">8.</strong> Components</a></li><li class="chapter-item expanded "><a href="js.html"><strong aria-hidden="true">9.</strong> JavaScript Interop</a></li><li class="chapter-item expanded "><a href="speed.html"><strong aria-hidden="true">10.</strong> Speed & Efficiency</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">11.</strong> FAQ</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="gettingstarted.html"><strong aria-hidden="true">2.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="dom.html"><strong aria-hidden="true">3.</strong> DOM Basics</a></li><li class="chapter-item expanded "><a href="events.html"><strong aria-hidden="true">4.</strong> Event Handling</a></li><li class="chapter-item expanded "><a href="state.html"><strong aria-hidden="true">5.</strong> Observer Pattern & State</a></li><li class="chapter-item expanded "><a href="routing.html"><strong aria-hidden="true">6.</strong> URL Routing</a></li><li class="chapter-item expanded "><a href="style.html"><strong aria-hidden="true">7.</strong> CSS & Style</a></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">8.</strong> Components</a></li><li class="chapter-item expanded "><a href="js.html" class="active"><strong aria-hidden="true">9.</strong> JavaScript Interop</a></li><li class="chapter-item expanded "><a href="speed.html"><strong aria-hidden="true">10.</strong> Speed & Efficiency</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">11.</strong> FAQ</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -113,7 +113,7 @@
                         <a href="https://github.com/kwebio/kweb-core" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        <a href="https://github.com/kwebio/kweb-core/edit/master/docs/src/dom.md" title="Suggest an edit" aria-label="Suggest an edit">
+                        <a href="https://github.com/kwebio/kweb-core/edit/master/docs/src/js.md" title="Suggest an edit" aria-label="Suggest an edit">
                             <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
                     </div>
@@ -140,126 +140,64 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="dom-basics"><a class="header" href="#dom-basics">DOM Basics</a></h1>
-<h2 id="table-of-contents"><a class="header" href="#table-of-contents">Table of Contents</a></h2>
+                        <h1 id="javascript-interop"><a class="header" href="#javascript-interop">JavaScript Interop</a></h1>
 <ul>
-<li><a href="#creating-dom-elements-and-fragments">Creating DOM Elements and Fragments</a></li>
-<li><a href="#element-attributes">Element Attributes</a></li>
-<li><a href="#adding-children-to-an-existing-element">Adding children to an existing element</a></li>
-<li><a href="#reading-from-the-dom">Reading from the DOM</a></li>
-<li><a href="#supported-html-tags">Supported HTML tags</a></li>
-<li><a href="#further-reading">Further Reading</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#calling-a-javascript-function">Calling a JavaScript function</a></li>
+<li><a href="#calling-with-parameters">Calling with parameters</a></li>
+<li><a href="#function-caching-and-preloading">Function caching and preloading</a></li>
+<li><a href="#calling-a-javascript-function-with-a-result">Calling a JavaScript function with a result</a></li>
 </ul>
-<h2 id="creating-dom-elements-and-fragments"><a class="header" href="#creating-dom-elements-and-fragments">Creating DOM Elements and Fragments</a></h2>
-<p>Let's create a <code>&lt;button&gt;</code> as a child of the <code>&lt;body&gt;</code> element and set its <a href="https://docs.kweb.io/api/kweb-core/kweb/-element/text.html">text</a>:</p>
-<pre><code class="language-kotlin">fun main() {
-    Kweb(port = 16097) {
-        doc.body {
-            button().text(&quot;Click Me!&quot;)
-        }
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>Kweb's DOM interaction functionality is build on top of two functions that allow you to interact
+directly with the browser's JavaScript interpreter:</p>
+<ul>
+<li><a href="https://docs.kweb.io/api/kweb-core/kweb/-web-browser/call-js-function.html">WebBrowser.callJsFunction()</a></li>
+<li><a href="https://docs.kweb.io/api/kweb-core/kweb/-web-browser/call-js-function-with-result.html">WebBrowser.callJsFunctionWithResult()</a></li>
+</ul>
+<p>Note that this is unrelated to Kotlin's ability to <a href="https://kotlinlang.org/docs/js-overview.html">compile to JavaScript</a>.</p>
+<h2 id="calling-a-javascript-function"><a class="header" href="#calling-a-javascript-function">Calling a JavaScript function</a></h2>
+<pre><code class="language-kotlin">doc.body {
+    browser.callJsFunction(&quot;&quot;&quot;alert(&quot;Hello World!&quot;)&quot;&quot;&quot;)
+}
+</code></pre>
+<h2 id="calling-with-parameters"><a class="header" href="#calling-with-parameters">Calling with parameters</a></h2>
+<p>You can pass parameters to a JavaScript function by passing them as arguments to the <code>callJsFunction()</code> function,
+using <code>{}</code> for substitution:</p>
+<pre><code class="language-kotlin">doc.body {
+    val greeting = &quot;Hello&quot;.json
+    val name = &quot;World&quot;.json
+    browser.callJsFunction(&quot;&quot;&quot;alert({} + &quot; &quot; + {} + &quot;!&quot;)&quot;&quot;&quot;, greeting, name)
+}
+</code></pre>
+<p>Parameters must be converted to a <a href="https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-element/">JsonElement</a>,
+for example by using the <a href="https://docs.kweb.io/api/kweb-core/kweb.util/json.html">json</a> extension property. Within
+the JavaScript code the <code>{}</code> should be treated like a variable, so <code>alert({})</code> is ok but <code>alert(&quot;{}&quot;)</code> will not work.</p>
+<h2 id="function-caching-and-preloading"><a class="header" href="#function-caching-and-preloading">Function caching and preloading</a></h2>
+<p>Kotlin automatically caches JavaScript functions in the browser for efficiency. If the function is 
+first called during initial page render, it will be parsed and cached as part of the initial page load.</p>
+<h2 id="calling-a-javascript-function-with-a-result"><a class="header" href="#calling-a-javascript-function-with-a-result">Calling a JavaScript function with a result</a></h2>
+<p>You can also retrieve a result from a function call using <a href="https://docs.kweb.io/api/kweb-core/kweb/-web-browser/call-js-function-with-result.html">callJsFunctionWithResult()</a>.
+Note that the last line of the <code>jsBody</code> parameter must be a <code>return</code> statement:</p>
+<pre><code class="language-kotlin">doc.body {
+    elementScope().launch {
+        val result : JsonElement = browser.callJsFunctionWithResult(&quot;return Date.now()&quot;)
+        println(&quot;Result: ${result.jsonPrimitive.intOrNull}&quot;)
     }
 }
 </code></pre>
-<p>The Kweb DSL can be used to create nested elements:</p>
-<pre><code class="language-kotlin">Kweb(port = 16097) {
-    doc.body {
-        table {
-            tr {
-                th().text(&quot;Name&quot;)
-                th().text(&quot;Age&quot;)
-            }
-            tr {
-                td().text(&quot;Alice&quot;)
-                td().text(&quot;21&quot;)
-            }
-            tr {
-                td().text(&quot;Bob&quot;)
-                td().text(&quot;22&quot;)
-            }
-        }
-    }
-}
-</code></pre>
-<h2 id="element-attributes"><a class="header" href="#element-attributes">Element Attributes</a></h2>
-<p>If you assign the button element to a val then you can also <a href="https://docs.kweb.io/api/kweb-core/kweb/-element/set.html">set its
-attributes</a>:</p>
-<pre><code class="language-kotlin">val button = button()
-button.text(&quot;Click Me!&quot;)
-button.classes(&quot;bigbutton&quot;)
-button[&quot;autofocus&quot;] = true
-</code></pre>
-<p>Or delete it:</p>
-<pre><code class="language-kotlin">button.delete()
-</code></pre>
-<h2 id="adding-children-to-an-existing-element"><a class="header" href="#adding-children-to-an-existing-element">Adding children to an existing element</a></h2>
-<p>The DSL syntax makes it very easy to create elements and their children
-together:</p>
-<pre><code class="language-kotlin">ul {
-    li().text(&quot;One&quot;)
-    li().text(&quot;Two&quot;)
-}
-</code></pre>
-<p>The created
-<a href="https://docs.kweb.io/api/kweb-core/kweb/-element/index.html">Element</a> is passed to the
-<code>{block}</code> as a parameter, which can be used to set attributes on the element, add
-listeners, or set the element's <a href="https://docs.kweb.io/api/kweb-core/kweb/-element/text.html">text</a> or <a href="https://docs.kweb.io/api/kweb-core/kweb/-element/inner-h-t-m-l.html">innerHtml</a>:</p>
-<pre><code class="language-kotlin">button { btnEl -&gt;
-    with(btnEl) {
-        classes(&quot;bigbutton&quot;)
-        this[&quot;autofocus&quot;] = true
-        text(&quot;Click Me!&quot;)
-    }
-}
-</code></pre>
-<p>We can also use the <code>new {}</code> function to add children to a pre-existing Element:</p>
-<pre><code class="language-kotlin">val unorderedList : ULElement = ul()
-unorderedList.new {
-    li().text(&quot;One&quot;)
-    li().text(&quot;Two&quot;)
-}
-</code></pre>
-<h2 id="reading-from-the-dom"><a class="header" href="#reading-from-the-dom">Reading from the DOM</a></h2>
-<p>Kweb can also read from the DOM, in this case the value of an <code>&lt;input&gt;</code>
-element:</p>
-<pre><code class="language-kotlin">val input: InputElement = input(type = InputType.text)
-// A KVar is a mutable value to which you can add listeners
-val inputKVar = input.value
-inputKVar.addListener { old, new -&gt;
-    println(&quot;Input changed from $old to $new&quot;)
-}
-</code></pre>
-<p>Events can evaluate a JavaScript expression and send the result to the
-server, in this case we give it an expression that will retrieve the
-value of an InputElement, conveniently provided by valueJsExpression.</p>
-<p><strong>Note:</strong> See the <a href="https://docs.kweb.io/book/state.html#binding-a-kvar-to-an-input-elements-value">Observer Pattern &amp;
-State</a>
-section for another way to read input element values.</p>
-<h2 id="supported-html-tags"><a class="header" href="#supported-html-tags">Supported HTML tags</a></h2>
-<p>Kweb supports a significant subset of HTML tags like <em>button()</em>, <em>p()</em>,
-<em>a()</em>, <em>table()</em>, and so on. You can find a more complete list in
-<a href="https://github.com/kwebio/kweb-core/blob/master/src/main/kotlin/kweb/prelude.kt">prelude.kt</a>
-(scroll down to the <em>Functions</em> section). This provides a nice
-statically-typed HTML DSL, fully integrated with the Kotlin language.</p>
-<p>If a tag doesn't have explicit support in Kweb that's not a problem.
-For example, here is how you might use the infamous and now-obsolete
-&lt;blink&gt; tag:</p>
-<pre><code class="language-kotlin">element(&quot;blink&quot;) {
-    span().text(&quot;Blinking Text&quot;)
-}
-</code></pre>
-<h2 id="further-reading"><a class="header" href="#further-reading">Further Reading</a></h2>
-<p>The
-<a href="https://github.com/kwebio/kweb-core/blob/master/src/main/kotlin/kweb/Element.kt">Element</a>
-class provides many other useful ways to interact with DOM elements.</p>
+<p><code>callJsFunctionWithResult()</code> is a suspend function so it must be called inside a <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/">CoroutineScope</a>. 
+You can create one within Kweb's DSL using <strong>elementScope()</strong>. This scope will be cancelled automatically
+when this part of the DOM is no-longer needed.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="gettingstarted.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="components.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                            <a rel="next" href="events.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="speed.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
@@ -268,10 +206,10 @@ class provides many other useful ways to interact with DOM elements.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="gettingstarted.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="components.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                    <a rel="next" href="events.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="speed.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

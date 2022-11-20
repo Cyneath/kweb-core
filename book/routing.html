@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>URL Routing - The Kweb Book</title>
+        <title>URL Routing - The Kweb User Manual</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="User manual for the Kweb web framework">
@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="gettingstarted.html"><strong aria-hidden="true">2.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="dom.html"><strong aria-hidden="true">3.</strong> DOM Basics</a></li><li class="chapter-item expanded "><a href="events.html"><strong aria-hidden="true">4.</strong> Event Handling</a></li><li class="chapter-item expanded "><a href="state.html"><strong aria-hidden="true">5.</strong> Observer Pattern & State</a></li><li class="chapter-item expanded "><a href="routing.html" class="active"><strong aria-hidden="true">6.</strong> URL Routing</a></li><li class="chapter-item expanded "><a href="integrations.html"><strong aria-hidden="true">7.</strong> Integrations</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">8.</strong> Frequently Asked Questions</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="gettingstarted.html"><strong aria-hidden="true">2.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="dom.html"><strong aria-hidden="true">3.</strong> DOM Basics</a></li><li class="chapter-item expanded "><a href="events.html"><strong aria-hidden="true">4.</strong> Event Handling</a></li><li class="chapter-item expanded "><a href="state.html"><strong aria-hidden="true">5.</strong> Observer Pattern & State</a></li><li class="chapter-item expanded "><a href="routing.html" class="active"><strong aria-hidden="true">6.</strong> URL Routing</a></li><li class="chapter-item expanded "><a href="style.html"><strong aria-hidden="true">7.</strong> CSS & Style</a></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">8.</strong> Components</a></li><li class="chapter-item expanded "><a href="js.html"><strong aria-hidden="true">9.</strong> JavaScript Interop</a></li><li class="chapter-item expanded "><a href="speed.html"><strong aria-hidden="true">10.</strong> Speed & Efficiency</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">11.</strong> FAQ</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -104,11 +104,17 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">The Kweb Book</h1>
+                    <h1 class="menu-title">The Kweb User Manual</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/kwebio/kweb-core" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/kwebio/kweb-core/edit/master/docs/src/routing.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
                     </div>
                 </div>
@@ -175,10 +181,9 @@ fun main() {
 }
 </code></pre>
 <p>Now, if you visit <a href="http://localhost:16097/users/997">http://localhost:16097/users/997</a>, you will see:</p>
-<pre><code class="language-html">&lt;h1&gt;User id: 997&lt;/h1&gt;
-</code></pre>
-<p>You can have as many path()s as you need, each with it's own path
-definition. The definition can contain parameters wrapped in <code>{braces}</code>.</p>
+<kbd>
+User id: 997
+</kbd>
 <p>The value of these parameters can then be retrieved from the <em>params</em>
 map, but note that the values are wrapped in a <code>KVar&lt;String&gt;</code> object.
 This means that you can use all of Kweb's <a href="https://docs.kweb.io/en/latest/state.html">state
@@ -201,7 +206,7 @@ with the style of your overall website:</p>
 }
 </code></pre>
 <h2 id="modifying-the-url"><a class="header" href="#modifying-the-url">Modifying the URL</a></h2>
-<p>You can obtain <em>and modify</em> the URL of the current page using
+<p>You can obtain <strong>and modify</strong> the URL of the current page using
 <a href="https://github.com/kwebio/kweb-core/blob/master/src/main/kotlin/kweb/WebBrowser.kt#L98">WebBrowser.url</a>.</p>
 <p>This returns a <code>KVar&lt;String&gt;</code> which contains the URL relative to the
 origin - so for the page <code>http://foo/bar/z</code> the <code>url</code> would be <code>/bar/z</code>.</p>
@@ -235,11 +240,10 @@ to <code>http://localhost:16097/number/1</code> without a page refresh, and you'
 see a hyperlink with text <code>Number 1</code>. If you click on this link you'll
 see that the number increments (both in the URL and in the link text),
 also without a page refresh.</p>
-<p>The line <code>num.value++</code> is worthy of additional attention as there is
-more going on here than meets the eye. <code>num</code> is a <code>KVar&lt;Int&gt;</code>, and so it
-can be incremented via its <code>value</code> property. This will cause the page
-URL to update, which will in-turn cause the DOM to update to reflect the
-new URL. All of this is handled for you automatically by Kweb.</p>
+<p><code>num.value++</code> is worthy of additional attention. <code>num</code> is a <code>KVar&lt;Int&gt;</code>, 
+and so it can be incremented via its <code>value</code> property. This will cause the 
+page URL to update, which will in-turn cause the DOM to update to reflect 
+the new URL. All of this is handled for you automatically by Kweb.</p>
 
                     </main>
 
@@ -248,7 +252,7 @@ new URL. All of this is handled for you automatically by Kweb.</p>
                             <a rel="prev" href="state.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                            <a rel="next" href="integrations.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="style.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
@@ -260,7 +264,7 @@ new URL. All of this is handled for you automatically by Kweb.</p>
                     <a rel="prev" href="state.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                    <a rel="next" href="integrations.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="style.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
